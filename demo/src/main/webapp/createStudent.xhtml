@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Create Student Record</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <p:outputLabel for="name" value="Name: " />
+
+            <p:outputLabel for="surname" value="Surname: " />
+
+            <p:outputLabel for="phone" value="Phone Number:" />
+            <p:inputMask id="phone" value="#{studentBean.student.name}" mask="(999) 999-9999"/>
+
+            <p:outputLabel for="city" value="City" />
+
+            <p:outputLabel for="district" value="District:" />
+
+            <p:outputLabel for="description" value="Description:" />
+
+        </h:panelGrid>
+
+
+            <p:panelGrid id="display" columns="2" columnClasses="label,value">
+
+                <h:outputText value="Name: " />
+                <h:outputText id="nameValue" value="#{studentBean.student.name}" />
+
+                <h:outputText value="Surname: " />
+                <h:outputText id="surnameValue" value="#{studentBean.student.surname}" />
+
+                <h:outputText value="Phone Number: " />
+                <h:outputText id="phoneValue" value="#{studentBean.student.phone}" />
+
+                <h:outputText value="City: " />
+                <p:selectOneMenu id="city" value="#{dropdownView.city}" style="width:150px">
+                    <p:ajax listener="#{dropdownView.onCityChange}" update="city" />
+                    <f:selectItem itemLabel="City: " itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{dropdownView.cities}" />
+                </p:selectOneMenu>
+
+                <h:outputText value="District: " />
+                <p:selectOneMenu id="district" value="#{dropdownView.district}" style="width:150px">
+                    <f:selectItem itemLabel="District: " itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{dropdownView.districts}" />
+                </p:selectOneMenu>
+
+                <h:outputText value="Description: " />
+                <h:outputText id="descriptionValue" value="#{studentBean.student.description}" />
+
+            </p:panelGrid>
+
+        <p:fileUpload value="#{studentBean.student.file}" mode="simple" skinSimple="true"/>
+        <p:commandButton value="Submit" id="submit" action="#{studentBean.addStudent()}" style="margin-right:20px;" ajax="false" />
+    </h:form>
+</h:body>
+</html>
